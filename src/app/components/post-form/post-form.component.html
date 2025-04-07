@@ -1,0 +1,13 @@
+<div class="card">
+    <h3>Create a New Style Post</h3>
+    <form (ngSubmit)="submitForm()" #form="ngForm">
+      <label for="caption">Caption:</label>
+      <input type="text" [(ngModel)]="caption" name="caption" required />
+  
+      <label for="items">Items:</label>
+      <textarea [(ngModel)]="itemsText" name="items" rows="4" required></textarea>
+  
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  
