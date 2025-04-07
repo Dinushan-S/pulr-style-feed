@@ -9,6 +9,8 @@ import { Post } from 'src/app/models/post.model';
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
+  isLoading = true;
+
 
   constructor(private postService: PostService) {}
 
@@ -20,15 +22,19 @@ export class PostListComponent implements OnInit {
     this.postService.getPosts().subscribe({
       next: (data: Post[]) => {
         this.posts = data;
+        this.isLoading = false; 
       },
       error: (err) => {
         console.error('Error loading posts:', err);
+        this.isLoading = false; 
       }
     });
   }
 
   getItemNames(post: Post): string {
-    return post.items?.map(item => item.name).join(', ') || 'None';
+    return post.items
+      ?.map(item => item.name.split('\n').join(', '))
+      .join(', ') || 'None';
   }
 
 }

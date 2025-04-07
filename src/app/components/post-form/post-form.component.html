@@ -1,13 +1,19 @@
-<div class="card">
+  <div class="card" style="font-family: sans-serif;">
     <h3>Create a New Style Post</h3>
-    <form (ngSubmit)="submitForm()" #form="ngForm">
-      <label for="caption">Caption:</label>
-      <input type="text" [(ngModel)]="caption" name="caption" required />
-  
-      <label for="items">Items:</label>
-      <textarea [(ngModel)]="itemsText" name="items" rows="4" required></textarea>
-  
-      <button type="submit">Submit</button>
+    <form (ngSubmit)="submitPost()">
+      <div class="form-group" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <label for="caption" style="min-width: 80px;">Caption:</label>
+        <input id="caption" [(ngModel)]="caption" name="caption" required style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <div class="form-group" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        <label for="items" style="min-width: 80px;">Items:</label>
+        <textarea id="items" [(ngModel)]="itemsText" name="items" rows="3" required style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+      </div>
+      <div style="text-align: right;">
+        <button type="submit" [disabled]="isLoading">Submit</button>
+      </div>
     </form>
   </div>
+  
+  
   

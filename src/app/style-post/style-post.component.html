@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="card">
+      <h2>Create a New Style Post</h2>
+  
+      <label for="caption">Caption:</label>
+      <input id="caption" type="text" [(ngModel)]="caption" />
+  
+      <label for="items">Items:</label>
+      <textarea id="items" [(ngModel)]="itemsText" rows="4"></textarea>
+  
+      <button (click)="submitPost()">Submit</button>
+    </div>
+  
+    <div class="card">
+      <h3>Style Feed</h3>
+      <div *ngFor="let post of posts" class="post">
+        <strong>{{ post.caption || 'Nothing' }}</strong>
+        <p><b>Items:</b> {{ post.items.join(', ') }}</p>
+      </div>
+    </div>
+  </div>
+  

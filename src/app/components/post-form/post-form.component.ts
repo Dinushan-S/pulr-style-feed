@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Post } from 'src/app/models/post.model';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -8,14 +9,29 @@ import { PostService } from 'src/app/services/post.service';
 export class PostFormComponent {
   caption = '';
   itemsText = '';
+  isLoading = false;
 
   constructor(private postService: PostService) {}
 
-  submitForm() {
-    const items = this.itemsText.split(',').map(i => i.trim());
-    this.postService.createPost(this.caption, items).subscribe(() => {
-      this.caption = '';
-      this.itemsText = '';
+  submitPost() {
+    this.isLoading = true;
+
+    const newPost: Post = {
+      caption: this.caption,
+      items: this.itemsText.split(',').map(i => ({ name: i.trim() }))
+    };
+
+    this.postService.createPost(newPost.caption, newPost.items.map(item => item.name)).subscribe({
+      next: () => {
+        this.caption = '';
+        this.itemsText = '';
+        this.isLoading = false;
+        location.reload();
+      },
+      error: err => {
+        console.error('Error creating post:', err);
+        this.isLoading = false;
+      }
     });
   }
 }
